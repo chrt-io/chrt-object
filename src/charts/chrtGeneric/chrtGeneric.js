@@ -3,7 +3,7 @@ import { accessor, render, update, curve, add, attr } from '../util';
 import { data, node, parent } from '~/util';
 
 export default function chrtGeneric() {
-  console.log('chrtGeneric', this)
+  // console.log('chrtGeneric', this)
   this._id = null;
   this.objects = [];
   this.fields = {
