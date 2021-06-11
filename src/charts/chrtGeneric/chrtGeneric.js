@@ -16,6 +16,11 @@ export default function chrtGeneric() {
   }
   this._classNames = [];
 
+  this._accessor = (d, i) => ({
+    x: !isNull(d) && Object.prototype.hasOwnProperty.call(d, 'x') ? d.x : i,
+    y: isNull(d) ? null : (Object.prototype.hasOwnProperty.call(d, 'y') ? d.y : d)
+  });
+
   this.interpolationFunction = null;
 
   // list of getter/setter function for custom attributes

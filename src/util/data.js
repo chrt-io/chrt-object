@@ -32,6 +32,8 @@ export default function (data, accessor) {
     return accessorFunction(d, i, arr);
   }) : data;
 
+  // console.log('DATA', data)
+
   this._accessorApplied = true; // do not apply the accessor multiple times
 
   return this;
