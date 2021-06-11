@@ -20,23 +20,19 @@ export default function (data, accessor) {
   }
 
   // data is passed
-  this._orginalData = data;
-
-  // // console.log('DATA', this, this._data, data);
-
-
+  this._orginalData = this._orginalData || data;
 
   // define accessor function to map values
   const accessorFunction = accessor || this._accessor;
   this._accessor = accessorFunction;
-  this._data = accessorFunction ? data.map((d, i, arr) => {
+  this._data = (accessorFunction && !this._accessorApplied) ? data.map((d, i, arr) => {
     if(d instanceof Object) {
       return Object.assign({}, d, accessorFunction(d, i, arr));
     }
     return accessorFunction(d, i, arr);
   }) : data;
 
-  // console.log('DATA', this._data)
+  this._accessorApplied = true; // do not apply the accessor multiple times
 
   return this;
 }
