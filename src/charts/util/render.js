@@ -1,8 +1,12 @@
-import { createSVG as create } from '../../layout';
+import { createSVG as create } from './create';
 import { hasData } from '~/helpers';
 
 export default function render(parent) {
   // console.log('RENDER', this, parent)
+  if(this.g) {
+    // avoid duplication of g
+    return this;
+  }
   this.g = create('g');
   if(this._id) {
     this.g.setAttribute('id', this._id);
@@ -38,5 +42,5 @@ export default function render(parent) {
   }
 
   this.update();
-  return this.parentNode;
+  return this; // .parentNode;
 }
