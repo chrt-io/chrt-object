@@ -4,10 +4,9 @@ export default function attribute(name, fn, accessor = (value) => value) {
     console.warn('name missing: attr method requires a name for the attribute')
     return this;
   }
-  if(isNull(fn)) {
+  if(!isNull(name) && typeof fn === 'undefined') {
     return this.attrs[name];
   }
-
   if (typeof fn === 'function') {
     // something will go here
     this.attrs[name] = accessor(fn);
