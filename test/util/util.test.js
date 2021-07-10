@@ -31,41 +31,6 @@ describe('Testing util functions', () => {
 
     expect(chrtObj.curve()).toEqual('linearInterpolation');
   });
-
-  test('Test attr()', async () => {
-    const chrtObj = new chrtGeneric();
-
-    const id = 'abc123';
-    chrtObj.id(id)
-
-    const withId = {_id: id};
-    expect(chrtObj.attr()).toMatchObject(chrtObj)
-  });
-
-  test('Test attr(\'name\')', async () => {
-    const chrtObj = new chrtGeneric();
-    const value = '0123456789';
-    chrtObj.attr('name', value)
-    const attr = chrtObj.attr('name')();
-    expect(attr).toEqual(value)
-  });
-
-  test('Test attr(\'name\') and attr(\'name\', value)', async () => {
-    const chrtObj = new chrtGeneric();
-    const value = '0123456789';
-    chrtObj.attr('name', value)
-    const attr = chrtObj.attr('name')();
-    expect(attr).toEqual(value)
-  });
-
-  test('Test attr(\'name\') and attr(\'name\', func)', async () => {
-    const chrtObj = new chrtGeneric();
-    const value = '012345678';
-    const func = () => value;
-    chrtObj.attr('name', func)
-    const attr = chrtObj.attr('name')();
-    expect(attr).toEqual(value)
-  });
 })
 
 describe('Testing layout functions', () => {

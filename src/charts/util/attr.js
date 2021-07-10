@@ -5,7 +5,8 @@ export default function attribute(name, fn, accessor = (value) => value) {
     return this;
   }
   if(!isNull(name) && typeof fn === 'undefined') {
-    return this.attrs[name];
+    // this.name()
+    return this.attrs?.[name] || (() => {});
   }
   if (typeof fn === 'function') {
     // something will go here
