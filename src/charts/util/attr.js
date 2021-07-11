@@ -1,6 +1,5 @@
 import { isNull } from '~/helpers';
 export default function attribute(name, fn, accessor = (value) => value) {
-  console.log('attr', arguments)
   if(isNull(name)) {
     console.warn('name missing: attr method requires a name for the attribute')
     return this;
