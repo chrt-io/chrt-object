@@ -1,5 +1,6 @@
 import { isNull } from '~/helpers';
 export default function attribute(name, fn, accessor = (value) => value) {
+  console.log('attr', arguments)
   if(isNull(name)) {
     console.warn('name missing: attr method requires a name for the attribute')
     return this;
@@ -10,7 +11,7 @@ export default function attribute(name, fn, accessor = (value) => value) {
   }
   if (typeof fn === 'function') {
     // something will go here
-    this.attrs[name] = accessor(fn);
+    this.attrs[name] = fn;
   } else {
     // fn is a Boolean, String, Number or any other type but function
     this.attrs[name] = () => accessor(fn);
