@@ -1,6 +1,6 @@
 {
   "name": "chrt-object",
-  "version": "0.0.7",
+  "version": "0.0.8",
   "description": "Chart Object components of Chrt",
   "main": "dist/chrt-object.js",
   "module": "dist/chrt-object.esm.js",
