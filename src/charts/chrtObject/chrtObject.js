@@ -1,8 +1,7 @@
-import { hasData, isNull } from '~/helpers';
+import { hasData, isNull } from '../../helpers';
 import { render, update, curve, add, attr, data, node, parent } from '../util';
 
 export default function chrtObject() {
-  // console.log('chrtObject', this)
   this._id = null;
   this.objects = [];
   this.type = 'chrt-object';
