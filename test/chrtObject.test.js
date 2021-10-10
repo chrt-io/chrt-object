@@ -1,11 +1,11 @@
-import chrtGeneric from '~/charts/chrtGeneric';
+import chrtObject from '~/charts/chrtObject';
 import * as util from '~/charts/util';
 
-describe('Testing chrtGeneric', () => {
+describe('Testing chrtObject', () => {
   test('Test id', async () => {
     const id = 'abc123';
 
-    const obj = new chrtGeneric();
+    const obj = new chrtObject();
     obj.id(id)
     expect(obj.id()).toEqual(id)
   });
@@ -13,7 +13,7 @@ describe('Testing chrtGeneric', () => {
   test('Test id for <g>', async () => {
     const id = 'abc123';
 
-    const obj = new chrtGeneric();
+    const obj = new chrtObject();
     obj.node(util.createSVG())
     obj.render();
     obj.id(id)
@@ -25,7 +25,7 @@ describe('Testing chrtGeneric', () => {
   test('Test class', async () => {
     const className = 'abc123';
 
-    const obj = new chrtGeneric();
+    const obj = new chrtObject();
     obj.node(util.createSVG())
     obj.render();
     obj.class(className)
@@ -36,19 +36,19 @@ describe('Testing chrtGeneric', () => {
     const className1 = 'abc123';
     const className2 = 'def456';
 
-    const obj = new chrtGeneric();
+    const obj = new chrtObject();
     obj.class(className1)
     obj.class(className2)
     expect(obj.class()).toEqual([className1, className2])
   });
 
   test('Test hasData', async () => {
-    const obj = new chrtGeneric();
+    const obj = new chrtObject();
     expect(obj.hasData()).toEqual(false)
   });
 
   test('Test this.x', async () => {
-    const obj = new chrtGeneric();
+    const obj = new chrtObject();
     obj.x('x');
 
     expect(obj.scales.x).toBeDefined()
@@ -56,7 +56,7 @@ describe('Testing chrtGeneric', () => {
   });
 
   test('Test this.y', async () => {
-    const obj = new chrtGeneric();
+    const obj = new chrtObject();
     obj.y('y');
 
     expect(obj.scales.x).toBeDefined()

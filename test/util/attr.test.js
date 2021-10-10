@@ -1,8 +1,8 @@
-import chrtGeneric from '~/charts/chrtGeneric';
+import chrtObject from '~/charts/chrtObject';
 
 describe('Testing attr functions', () => {
   // test('Test attr()', async () => {
-  //   const chrtObj = new chrtGeneric();
+  //   const chrtObj = new chrtObject();
   //
   //   const id = 'abc123';
   //   chrtObj.id(id)
@@ -11,7 +11,7 @@ describe('Testing attr functions', () => {
   // });
   //
   // test('Test attr(\'name\') and attr(\'name\', value)', async () => {
-  //   const chrtObj = new chrtGeneric();
+  //   const chrtObj = new chrtObject();
   //   const value = '0123456789';
   //   chrtObj.attr('name', value)
   //   const attr = chrtObj.attr('name')();
@@ -19,7 +19,7 @@ describe('Testing attr functions', () => {
   // });
   //
   // test('Test attr(\'name\') and attr(\'name\', func)', async () => {
-  //   const chrtObj = new chrtGeneric();
+  //   const chrtObj = new chrtObject();
   //   const value = 0;
   //   const func = (d) => d + 1;
   //   chrtObj.attr('add', func)
@@ -30,7 +30,7 @@ describe('Testing attr functions', () => {
   // });
 
   test('Test attr as a object method with a value', async () => {
-    const chrtObj = new chrtGeneric();
+    const chrtObj = new chrtObject();
     function time(value) {
       return this.attr('time', value)
     }
@@ -44,7 +44,7 @@ describe('Testing attr functions', () => {
   });
 
   test('Test attr as a object method with a function', async () => {
-    const chrtObj = new chrtGeneric();
+    const chrtObj = new chrtObject();
     function add10(value) {
       return this.attr('add10', value)
     }

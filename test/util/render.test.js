@@ -1,6 +1,6 @@
 // This tutorial helped a lot: https://javascript.plainenglish.io/mocking-imported-constants-methods-in-javascript-with-jest-b78f52f7dd84
 
-import chrtGeneric from '~/charts/chrtGeneric';
+import chrtObject from '~/charts/chrtObject';
 
 import * as util from '~/charts/util';
 const {hasData} = require('../../src/helpers/misc.js');
@@ -18,7 +18,7 @@ describe('Test render', () => {
   it('Should test create a SVG g attribute', () => {
     // hasData.mockReturnValue(true)
 
-    const chrtObj = new chrtGeneric();
+    const chrtObj = new chrtObject();
     chrtObj.node(util.createSVG())
 
     expect(chrtObj.g).not.toBeDefined();
@@ -33,7 +33,7 @@ describe('Test render', () => {
   it('Should not create a new g when called twice', () => {
     // hasData.mockReturnValue(true)
 
-    const chrtObj = new chrtGeneric();
+    const chrtObj = new chrtObject();
     chrtObj.node(util.createSVG())
 
     chrtObj.render();
@@ -47,7 +47,7 @@ describe('Test render', () => {
   it('Test with hasData(true)', () => {
     hasData.mockReturnValue(true)
 
-    const chrtObj = new chrtGeneric();
+    const chrtObj = new chrtObject();
     chrtObj.node(util.createSVG())
     const id = 'ID123';
     chrtObj.id(id)
@@ -62,13 +62,13 @@ describe('Test render', () => {
   it('Test with parent', () => {
     hasData.mockReturnValue(true)
 
-    const parentObj = new chrtGeneric();
+    const parentObj = new chrtObject();
     const parentId = 'ParentID123';
     parentObj.id(parentId)
     parentObj.node(util.createSVG())
     parentObj.render();
 
-    const chrtObj = new chrtGeneric();
+    const chrtObj = new chrtObject();
     const id = 'ID123';
     chrtObj.id(id)
     chrtObj.node(util.createSVG())
@@ -81,14 +81,14 @@ describe('Test render', () => {
   it('Test with parent with type stack', () => {
     hasData.mockReturnValue(true)
 
-    const parentObj = new chrtGeneric();
+    const parentObj = new chrtObject();
     parentObj.type = 'stack';
     const parentId = 'ParentID123';
     parentObj.id(parentId)
     parentObj.node(util.createSVG())
     parentObj.render();
 
-    const chrtObj = new chrtGeneric();
+    const chrtObj = new chrtObject();
     const id = 'ID123';
     chrtObj.id(id)
     chrtObj.node(util.createSVG())
@@ -100,7 +100,7 @@ describe('Test render', () => {
 
   /*
   it('Should test data when hasData return false', () => {
-    const chrtObj = new chrtGeneric().data([0,1,2,3,4]);
+    const chrtObj = new chrtObject().data([0,1,2,3,4]);
 
     //const result = util.data();
     expect(util.data.call(chrtObj)).toMatchObject(chrtObj);
@@ -109,14 +109,14 @@ describe('Test render', () => {
   it('Should test data when hasData return true', () => {
     hasData.mockReturnValue(true)
 
-    const chrtObj = new chrtGeneric().data([0,1,2,3,4]);
+    const chrtObj = new chrtObject().data([0,1,2,3,4]);
     expect(chrtObj._data).toBeDefined();
   });
 
   it('Should test data if function creates an accessor', () => {
     hasData.mockReturnValue(true)
 
-    const chrtObj = new chrtGeneric();
+    const chrtObj = new chrtObject();
     util.data.call(chrtObj, d => d);
     expect(chrtObj._accessor).toBeDefined();
   });
@@ -124,7 +124,7 @@ describe('Test render', () => {
   it('Should test data (numbers) + accessor', () => {
     hasData.mockReturnValue(true)
 
-    const chrtObj = new chrtGeneric();
+    const chrtObj = new chrtObject();
     util.data.call(chrtObj, [0,1,2,3,4,5], d => ({x:d,y:d}));
     expect(chrtObj.data()).toEqual([
       { x: 0, y: 0 },
@@ -139,7 +139,7 @@ describe('Test render', () => {
   it('Should test data (objects) + accessor', () => {
     hasData.mockReturnValue(true)
 
-    const chrtObj = new chrtGeneric();
+    const chrtObj = new chrtObject();
     util.data.call(chrtObj, [0,1,2,3,4,5].map(d => ({x:d,y:d})), d => ({x:d.x,y:d.y}));
     expect(chrtObj.data()).toEqual([
       { x: 0, y: 0 },

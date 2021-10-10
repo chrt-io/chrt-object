@@ -1,12 +1,12 @@
 import * as chrt from 'chrt';
-import chrtGeneric from '~/charts/chrtGeneric';
+import chrtObject from '~/charts/chrtObject';
 import * as util from '~/charts/util';
 
 describe('Test node', () => {
 
   it('Testing node', () => {
 
-    const chrtObj = new chrtGeneric();
+    const chrtObj = new chrtObject();
     const root = util.createSVG();
     chrtObj.node(root)
 

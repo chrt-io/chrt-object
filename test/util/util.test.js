@@ -1,25 +1,25 @@
-import chrtGeneric from '~/charts/chrtGeneric';
+import chrtObject from '~/charts/chrtObject';
 import * as util from '~/charts/util';
 
 describe('Testing util functions', () => {
   test('Test add', async () => {
-    const chrtObj = new chrtGeneric();
+    const chrtObj = new chrtObject();
 
     expect(chrtObj.objects.length).toEqual(0);
 
-    const obj = new chrtGeneric();
+    const obj = new chrtObject();
     util.add.call(chrtObj, obj);
 
     expect(chrtObj.objects.length).toEqual(1);
 
-    const obj2 = new chrtGeneric();
+    const obj2 = new chrtObject();
     util.add.call(chrtObj, obj2, true);
 
     expect(chrtObj.objects.length).toEqual(2);
   });
 
   test('Test curve', async () => {
-    const chrtObj = new chrtGeneric();
+    const chrtObj = new chrtObject();
 
     expect(chrtObj.interpolationFunction).toBeNull();
 

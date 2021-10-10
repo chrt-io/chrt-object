@@ -1,5 +1,5 @@
 import * as chrt from 'chrt';
-import chrtGeneric from '~/charts/chrtGeneric';
+import chrtObject from '~/charts/chrtObject';
 import * as util from '~/charts/util';
 
 describe('Test update', () => {
@@ -10,7 +10,7 @@ describe('Test update', () => {
     const chart = chrt.Chrt()
       .node(mockElement)
 
-    const chrtObj = new chrtGeneric();
+    const chrtObj = new chrtObject();
     const draw = jest.fn();
     chrtObj.draw = draw;
 
