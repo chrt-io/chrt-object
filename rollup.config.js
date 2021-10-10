@@ -1,9 +1,7 @@
 import commonjs from 'rollup-plugin-commonjs';
-import { uglify } from 'rollup-plugin-uglify';
 import resolve from 'rollup-plugin-node-resolve';
 import babel from '@rollup/plugin-babel';
 import {terser} from "rollup-plugin-terser";
-import bundleSize from 'rollup-plugin-bundle-size';
 import * as meta from "./package.json";
 
 const STARTED = 2020;
@@ -29,7 +27,6 @@ const config = {
       exclude: 'node_modules/**',
       babelrc: false,
     }),
-    bundleSize()
   ]
 };
 
@@ -53,7 +50,6 @@ export default [
     },
     plugins: [
       ...config.plugins,
-      uglify(),
       terser({
         output: {
           preamble: config.output.banner

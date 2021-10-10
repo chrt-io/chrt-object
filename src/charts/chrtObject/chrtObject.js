@@ -1,8 +1,8 @@
 import { hasData, isNull } from '~/helpers';
 import { render, update, curve, add, attr, data, node, parent } from '../util';
 
-export default function chrtGeneric() {
-  // console.log('chrtGeneric', this)
+export default function chrtObject() {
+  // console.log('chrtObject', this)
   this._id = null;
   this.objects = [];
   this.type = 'chrt-object';
@@ -27,7 +27,7 @@ export default function chrtGeneric() {
   this.attrs = [];
 
   this.id = (id) => {
-    // console.log('chrtGeneric.id', id, this._id);
+    // console.log('chrtObject.id', id, this._id);
     if(isNull(id)) {
       return this._id;
     }
@@ -81,13 +81,13 @@ export default function chrtGeneric() {
 }
 
 function chrt() {
-  return new chrtGeneric();
+  return new chrtObject();
 }
 
-chrtGeneric.prototype = Object.create(chrt.prototype);
+chrtObject.prototype = Object.create(chrt.prototype);
 
-// chrtGeneric.prototype = chrt.prototype = Object.assign(chrt.prototype, {
-chrtGeneric.prototype = Object.assign(chrt.prototype, {
+// chrtObject.prototype = chrt.prototype = Object.assign(chrt.prototype, {
+chrtObject.prototype = Object.assign(chrt.prototype, {
   node,
   data,
   add,

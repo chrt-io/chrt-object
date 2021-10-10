@@ -1,2 +1,2 @@
-import chrtGeneric from './charts/chrtGeneric/chrtGeneric';
-export default chrtGeneric;
+import chrtObject from './charts/chrtObject';
+export default chrtObject;
