@@ -52,6 +52,16 @@ describe('Testing chrtObject', () => {
     expect(obj.class()).toEqual([className1, className2])
   });
 
+  test('Test empty class name', async () => {
+    const className1 = 'abc123';
+    const className2 = '';
+
+    const obj = new chrtObject();
+    obj.class(className1)
+    obj.class(className2)
+    expect(obj.class()).toEqual([])
+  });
+
   test('Test string with multiple classes and spaces', async () => {
     const className1 = 'abc123';
     const className2 = 'def456';
