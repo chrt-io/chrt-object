@@ -39,6 +39,26 @@ describe('Testing chrtObject', () => {
     const obj = new chrtObject();
     obj.class(className1)
     obj.class(className2)
+    expect(obj.class()).toEqual([className2])
+  });
+
+  test('Test string with multiple classes', async () => {
+    const className1 = 'abc123';
+    const className2 = 'def456';
+    const className = `${className1} ${className2}`;
+
+    const obj = new chrtObject();
+    obj.class(className)
+    expect(obj.class()).toEqual([className1, className2])
+  });
+
+  test('Test string with multiple classes and spaces', async () => {
+    const className1 = 'abc123';
+    const className2 = 'def456';
+    const className = ` ${className1}     ${className2}   `;
+
+    const obj = new chrtObject();
+    obj.class(className)
     expect(obj.class()).toEqual([className1, className2])
   });
 

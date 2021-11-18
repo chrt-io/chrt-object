@@ -42,11 +42,17 @@ export default function chrtObject() {
     if(isNull(className)) {
       return this._classNames;
     }
-    const classNames = className.split(' ');
-    this._classNames = [...this._classNames.filter(d => d !== className), ...classNames];
+    const classNames = (Array.isArray(className) ? className : className.split(' '))
+                          .map(d => d.replace(/\s\s+/g, ' ').trim())
+                          .filter(d => d !== '');
+
+    this.original_classNames = this.original_classNames || this._classNames;
+
+    this._classNames = [...new Set([...this.original_classNames, ...classNames])];
 
     if(this.g) {
-      classNames.forEach(d => this.g.classList.add(d));
+      this.g.classList.remove(...this.g.classList)
+      this.g.classList.add(...this._classNames);
     }
     return this;
   }
