@@ -1,4 +1,4 @@
-import chrtObject from '~/charts/chrtObject';
+import chrtObject, { utils } from '~/index';
 import * as util from '~/charts/util';
 
 describe('Testing util functions', () => {
@@ -8,12 +8,12 @@ describe('Testing util functions', () => {
     expect(chrtObj.objects.length).toEqual(0);
 
     const obj = new chrtObject();
-    util.add.call(chrtObj, obj);
+    utils.add.call(chrtObj, obj);
 
     expect(chrtObj.objects.length).toEqual(1);
 
     const obj2 = new chrtObject();
-    util.add.call(chrtObj, obj2, true);
+    utils.add.call(chrtObj, obj2, true);
 
     expect(chrtObj.objects.length).toEqual(2);
   });
@@ -35,12 +35,12 @@ describe('Testing util functions', () => {
 
 describe('Testing layout functions', () => {
   test('Test create', () => {
-    const mockElement = util.create('div');
+    const mockElement = utils.create('div');
     expect(mockElement instanceof HTMLDivElement).toBe(true);
   });
 
   test('Test createSVG', () => {
-    const mockPath = util.createSVG('path');
+    const mockPath = utils.createSVG('path');
     expect(mockPath instanceof SVGElement).toBe(true);
   });
 });

@@ -1,4 +1,4 @@
-import { create, createSVG } from '~/layout';
+import { create, createSVG } from '~/helpers';
 
 describe('Testing layout functions', () => {
   test('Test create', () => {

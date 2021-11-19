@@ -1,6 +1,6 @@
 // This tutorial helped a lot: https://javascript.plainenglish.io/mocking-imported-constants-methods-in-javascript-with-jest-b78f52f7dd84
 
-import chrtObject from '~/charts/chrtObject';
+import chrtObject, { utils } from '~/index';
 
 import * as util from '~/charts/util';
 const {hasData} = require('../../src/helpers/misc.js');
@@ -19,7 +19,7 @@ describe('Test render', () => {
     // hasData.mockReturnValue(true)
 
     const chrtObj = new chrtObject();
-    chrtObj.node(util.createSVG())
+    chrtObj.node(utils.createSVG())
 
     expect(chrtObj.g).not.toBeDefined();
 
@@ -34,7 +34,7 @@ describe('Test render', () => {
     // hasData.mockReturnValue(true)
 
     const chrtObj = new chrtObject();
-    chrtObj.node(util.createSVG())
+    chrtObj.node(utils.createSVG())
 
     chrtObj.render();
     const g = chrtObj.root.innerHTML;
@@ -48,7 +48,7 @@ describe('Test render', () => {
     hasData.mockReturnValue(true)
 
     const chrtObj = new chrtObject();
-    chrtObj.node(util.createSVG())
+    chrtObj.node(utils.createSVG())
     const id = 'ID123';
     chrtObj.id(id)
 
@@ -65,13 +65,13 @@ describe('Test render', () => {
     const parentObj = new chrtObject();
     const parentId = 'ParentID123';
     parentObj.id(parentId)
-    parentObj.node(util.createSVG())
+    parentObj.node(utils.createSVG())
     parentObj.render();
 
     const chrtObj = new chrtObject();
     const id = 'ID123';
     chrtObj.id(id)
-    chrtObj.node(util.createSVG())
+    chrtObj.node(utils.createSVG())
 
     chrtObj.render(parentObj);
 
@@ -85,13 +85,13 @@ describe('Test render', () => {
     parentObj.type = 'stack';
     const parentId = 'ParentID123';
     parentObj.id(parentId)
-    parentObj.node(util.createSVG())
+    parentObj.node(utils.createSVG())
     parentObj.render();
 
     const chrtObj = new chrtObject();
     const id = 'ID123';
     chrtObj.id(id)
-    chrtObj.node(util.createSVG())
+    chrtObj.node(utils.createSVG())
 
     chrtObj.render(parentObj);
 

@@ -1,13 +1,13 @@
 import * as chrt from 'chrt';
-import chrtObject from '~/charts/chrtObject';
-import * as util from '~/charts/util';
+import chrtObject, { utils } from '~/index';
+
 
 describe('Test node', () => {
 
   it('Testing node', () => {
 
     const chrtObj = new chrtObject();
-    const root = util.createSVG();
+    const root = utils.createSVG();
     chrtObj.node(root)
 
     expect(chrtObj.root instanceof SVGElement).toBe(true);

@@ -1,5 +1,4 @@
-import chrtObject from '~/charts/chrtObject';
-import * as util from '~/charts/util';
+import chrtObject, { utils } from '~/index';
 
 describe('Testing chrtObject', () => {
   test('Test id', async () => {
@@ -14,7 +13,7 @@ describe('Testing chrtObject', () => {
     const id = 'abc123';
 
     const obj = new chrtObject();
-    obj.node(util.createSVG())
+    obj.node(utils.createSVG())
     obj.render();
     obj.id(id)
 
@@ -26,7 +25,7 @@ describe('Testing chrtObject', () => {
     const className = 'abc123';
 
     const obj = new chrtObject();
-    obj.node(util.createSVG())
+    obj.node(utils.createSVG())
     obj.render();
     obj.class(className)
     expect(obj.class()).toEqual([className])

@@ -1,6 +1,5 @@
 import * as chrt from 'chrt';
-import chrtObject from '~/charts/chrtObject';
-import * as util from '~/charts/util';
+import chrtObject from '~/';
 
 describe('Test update', () => {
 
