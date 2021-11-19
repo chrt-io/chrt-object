@@ -1,4 +1,3 @@
-import * as chrt from 'chrt';
 import chrtObject, { utils } from '~/index';
 
 
