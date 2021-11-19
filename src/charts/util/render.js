@@ -1,5 +1,4 @@
-import { createSVG as create } from './create';
-import { hasData } from '../../helpers';
+import { hasData, createSVG as create } from '../../helpers';
 
 export default function render(parent) {
   // console.log('RENDER', this, parent)

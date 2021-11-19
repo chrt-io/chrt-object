@@ -1,5 +1,5 @@
-import { hasData, isNull } from '../../helpers';
-import { render, update, curve, add, attr, data, node, parent } from '../util';
+import { hasData, isNull, add } from '../../helpers';
+import { render, update, curve, attr, data, node, parent } from '../util';
 
 export default function chrtObject() {
   this._id = null;

@@ -1,2 +1,3 @@
 import chrtObject from './charts/chrtObject';
-export default chrtObject;
+import * as utils from './helpers';
+export { chrtObject as default, utils };
