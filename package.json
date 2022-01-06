@@ -1,6 +1,6 @@
 {
   "name": "chrt-object",
-  "version": "0.0.14",
+  "version": "0.0.15",
   "description": "Universal Object components of Chrt",
   "type": "module",
   "main": "src/index.js",
