@@ -1,4 +1,4 @@
-export function getStrokeStyle(style, strokeWidth, strokeLength = 4) {
+export function getStrokeStyle(style, strokeWidth = 1, strokeLength = 4) {
   let strokeStyle = null;
   switch (style) {
     case 'dashed':

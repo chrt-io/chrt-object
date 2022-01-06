@@ -1,5 +1,5 @@
 import { hasData, isNull, add } from '../../helpers';
-import { render, update, curve, attr, data, node, parent } from '../util';
+import { render, update, curve, attr, data, node, parent, show, hide } from '../util';
 
 export default function chrtObject() {
   this._id = null;
@@ -24,6 +24,7 @@ export default function chrtObject() {
 
   // list of getter/setter function for custom attributes
   this.attrs = [];
+  attr.call(this, 'display', true);
 
   this.id = (id) => {
     // console.log('chrtObject.id', id, this._id);
@@ -96,9 +97,12 @@ chrtObject.prototype = Object.assign(chrt.prototype, {
   node,
   data,
   add,
+  snap: add,
   parent,
   render,
   update,
   curve,
   attr,
+  show,
+  hide,
 });
