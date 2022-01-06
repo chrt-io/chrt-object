@@ -36,7 +36,7 @@ describe('Test display', () => {
     expect(chart.node().querySelector(`#${chrtObj.id()}`).style.display).toEqual('none');
   });
 
-  it('show should set style to block', () => {
+  it('show should set style to original display view', () => {
     const mockElement = document.createElement('div');
     const chart = chrt.Chrt()
       .node(mockElement)
@@ -45,11 +45,18 @@ describe('Test display', () => {
     const draw = jest.fn();
     chrtObj.draw = draw;
     chart.add(chrtObj);
-    chrtObj.show();
 
+    const domNode = chart.node().querySelector(`#${chrtObj.id()}`);
+    domNode.style.display = 'inline-block';
+
+    chrtObj.hide();
     cssDisplay.call(chrtObj, chrtObj.attr('display')());
 
-    expect(chart.node().querySelector(`#${chrtObj.id()}`).style.display).toEqual('block');
+
+    chrtObj.show();
+    cssDisplay.call(chrtObj, chrtObj.attr('display')());
+
+    expect(domNode.style.display).toEqual('inline-block');
   });
 
 });

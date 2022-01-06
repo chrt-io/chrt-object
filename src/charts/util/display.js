@@ -18,9 +18,16 @@ export function cssDisplay(value) {
   if(!DOMNode) {
     return this;
   }
+  const currentDisplay = DOMNode.style.display;
+  this._display = typeof this._display !== 'undefined' ? this._display : DOMNode.style.display;
 
-  this._display = this._display || DOMNode.style.display || 'block';
-  DOMNode.style.display = value ? this._display : 'none';
+  if(!value) {
+    DOMNode.style.display = 'none';
+  } else {
+    if(currentDisplay === 'none' && value) {
+      DOMNode.style.display = this._display;
+    }
+  }
 
   return this;
 }
