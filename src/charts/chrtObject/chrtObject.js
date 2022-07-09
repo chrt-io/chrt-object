@@ -39,6 +39,18 @@ export default function chrtObject() {
     return this;
   }
 
+  this.aria = (ariaLabel) => {
+    if(isNull(ariaLabel)) {
+      return this.ariaLabel;
+    }
+    this.ariaLabel = ariaLabel || this.ariaLabel;
+
+    if(this.g && this.ariaLabel) {
+      this.g.setAttribute('aria-label', this.ariaLabel);
+    }
+    return this;
+  }
+
   this.class = (className) => {
     if(isNull(className)) {
       return this._classNames;
