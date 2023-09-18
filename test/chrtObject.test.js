@@ -1,3 +1,4 @@
+import * as chrt from 'chrt';
 import chrtObject, { utils } from '~/index';
 
 describe('Testing chrtObject', () => {
@@ -91,4 +92,31 @@ describe('Testing chrtObject', () => {
     expect(obj.scales.x).toBeDefined()
     expect(obj.y()).toEqual('y')
   });
+
+  test('Test this.getObjectTypeIndex', async () => {
+
+    const mockElement = document.createElement('div');
+    const chart = chrt.Chrt()
+      .node(mockElement)
+
+    const draw = jest.fn();
+
+    const chrtObj = new chrtObject();
+    chrtObj.draw = draw;
+    chart.add(chrtObj);
+
+    const chrtObj2 = new chrtObject();
+    chrtObj2.draw = draw;
+    chart.add(chrtObj2);
+
+    expect(chrtObj.getObjectTypeIndex()).toEqual(0)
+    expect(chrtObj2.getObjectTypeIndex()).toEqual(1)
+
+  });
+
+  test('Test this.getObjectTypeIndex without parent', async () => {
+    const chrtObjGhost = new chrtObject();
+    expect(chrtObjGhost.getObjectTypeIndex()).toEqual(-1)
+  })
+
 });

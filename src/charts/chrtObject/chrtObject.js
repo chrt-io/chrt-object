@@ -28,42 +28,43 @@ export default function chrtObject() {
 
   this.id = (id) => {
     // console.log('chrtObject.id', id, this._id);
-    if(isNull(id)) {
+    if (isNull(id)) {
       return this._id;
     }
     this._id = id || this._id;
 
-    if(this.g) {
+    if (this.g) {
       this.g.setAttribute('id', this._id);
     }
     return this;
   }
 
   this.aria = (ariaLabel) => {
-    if(isNull(ariaLabel)) {
-      return this.ariaLabel;
-    }
-    this.ariaLabel = ariaLabel || this.ariaLabel;
-
-    if(this.g && this.ariaLabel) {
-      this.g.setAttribute('aria-label', this.ariaLabel);
-    }
+    attr.call(this, 'aria', ariaLabel);
+    // if(isNull(ariaLabel)) {
+    //   return this.ariaLabel;
+    // }
+    // this.ariaLabel = ariaLabel || this.ariaLabel;
+    //
+    // if(this.g && this.ariaLabel) {
+    //   this.g.setAttribute('aria-label', this.ariaLabel);
+    // }
     return this;
   }
 
   this.class = (className) => {
-    if(isNull(className)) {
+    if (isNull(className)) {
       return this._classNames;
     }
     const classNames = (Array.isArray(className) ? className : className.split(' '))
-                          .map(d => d.replace(/\s\s+/g, ' ').trim())
-                          .filter(d => d !== '');
+      .map(d => d.replace(/\s\s+/g, ' ').trim())
+      .filter(d => d !== '');
 
     this.original_classNames = this.original_classNames || this._classNames;
 
     this._classNames = [...new Set([...this.original_classNames, ...classNames])];
 
-    if(this.g) {
+    if (this.g) {
       this.g.classList.remove(...this.g.classList)
       this.g.classList.add(...this._classNames);
     }
@@ -75,28 +76,33 @@ export default function chrtObject() {
   }
 
   const setScale = (scale, scaleName) => {
-    if(!isNull(scaleName)) {
+    if (!isNull(scaleName)) {
       this.scales[scale] = scaleName;
     }
   }
 
   this.x = (scale) => {
-    if(isNull(scale)) {
+    if (isNull(scale)) {
       return this.scales.x;
     }
     setScale('x', scale || 'x')
     return this;
   };
   this.y = (scale) => {
-    if(isNull(scale)) {
+    if (isNull(scale)) {
       return this.scales.y;
     }
     setScale('y', scale || 'y')
     return this;
   }
 
+  this.getObjectTypeIndex = () => {
+    return (this.parent()?.objects ?? []).filter(d => d.constructor.name === this.constructor.name).indexOf(this);
+  }
+
   return this;
 }
+
 
 function chrt() {
   return new chrtObject();
