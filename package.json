@@ -11,6 +11,9 @@
     "umd": "./dist/chrt-object.min.js",
     "default": "./dist/chrt-object.esm.js"
   },
+  "engines": {
+    "node": ">=14.0.0"
+  },
   "keywords": [
     "chrt",
     "charts",
