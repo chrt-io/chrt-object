@@ -1,75 +1,194 @@
 # chrt-object
-This is a module to be used internally to define the standard structure of a chrt object that can be inherited from all other components.
 
-**WORK IN PROGRESS** Please come back in few months after we will announce the first beta version. For more info mail to sayhi@chrt.io
+Base component for all chrt visualization elements. `chrt-object` provides the foundational structure and common methods that are inherited by all chrt components (line charts, bar charts, axes, grids, etc.).
 
-## How to build
+This module is used internally and you typically won't need to interact with it directly. However, understanding its methods is useful as they are available in all chrt components.
 
-###  Install the dependencies
-```
-npm install
-```
+## Common Methods
 
-###  Build the package
-```
-npm build
-```
-### Developing
-If you want to develop and see the changes reloaded live into another app you can use the watch script
-```
-npm run watch
-```
+All chrt components inherit these methods from `chrt-object`:
 
-## Use it as a module
+### Data and Scales
 
-### Method 1 - tgz package
+#### `.data([data[, accessor]])`
 
-#### Use the tgz provided in the repository
-You can use the `chrt-VERSION.tgz` package. The following commands will expand the chrt module in the `node_modules` folder of your project. Ready to be used with the usual `import` command:
-```
-cp chrt-VERSION.tgz SOMEWHERE
-cd myproject
-npm install SOMEWHERE/chrt-VERSION.tgz
+Sets or gets the data for the component.
+
+```js
+// Set data
+chart.data([1, 2, 3, 4, 5]);
+
+// Set data with accessor function
+chart.data(data, (d) => ({
+  x: d.timestamp,
+  y: d.value,
+}));
+
+// Get current data
+const currentData = chart.data();
 ```
 
-#### Create a tgz npm package
-You can create a package for testing with
-```
-npm pack
-```
-This command will create a file called `chrt-VERSION.tgz` in the root folder of chrt.
+#### `.x([scaleName])` / `.y([scaleName])`
 
-### Method 2 - symlinked package
+Sets or gets the scale to be used for the x/y dimension.
 
-####  Create a global node module
-```
-npm link
-```
-This creates `chrt` module inside your global `node_modules` so that you can import it with `import Chrt from 'chrt'`
+```js
+// Use custom scale for x-axis
+chart.x("customScale");
 
-####  Use the module in a different app
-```
-npm link chrt
-```
-This will create a sym link to the module created in your global.
-
-## Use it in your code
-After having installed or sym-linked the node you can use it as usual
-```
-import Chrt, {chrtPoints, chrtLine} from 'chrt';
+// Get current x scale name
+const xScale = chart.x();
 ```
 
+### Styling and Display
 
+#### `.class([className])`
+
+Adds CSS class(es) to the component.
+
+```js
+// Add single class
+chart.class("highlight");
+
+// Add multiple classes
+chart.class("highlight bold");
+
+// Add array of classes
+chart.class(["highlight", "bold"]);
+```
+
+#### `.show()` / `.hide()`
+
+Shows or hides the component.
+
+```js
+// Hide component
+chart.hide();
+
+// Show component
+chart.show();
+```
+
+#### `.attr(name[, value])`
+
+Gets or sets custom attributes.
+
+```js
+// Set attribute
+chart.attr("opacity", 0.5);
+
+// Set attribute with function
+chart.attr("color", (d, i) => (i % 2 ? "red" : "blue"));
+
+// Get attribute
+const opacity = chart.attr("opacity");
+```
+
+### DOM and Rendering
+
+#### `.node([element])`
+
+Gets or sets the DOM element containing the component.
+
+```js
+// Set container element
+chart.node(document.getElementById("chart"));
+
+// Get current element
+const element = chart.node();
+```
+
+#### `.id([value])`
+
+Gets or sets the ID of the component.
+
+```js
+// Set ID
+chart.id("mainChart");
+
+// Get current ID
+const id = chart.id();
+```
+
+#### `.parent([object])`
+
+Gets or sets the parent object of the component.
+
+```js
+// Get parent
+const parent = chart.parent();
+```
+
+#### `.render([parent])`
+
+Renders the component, optionally within a parent component.
+
+```js
+// Render component
+chart.render();
+
+// Render within parent
+chart.render(parentComponent);
+```
+
+### Utility Methods
+
+#### `.curve([interpolationFunction])`
+
+Sets the interpolation function for line-based visualizations. Uses chrt's own interpolation system through the `chrt-interpolations` module.
+
+```js
+// Set curve interpolation using chrt's spline interpolation
+chrt.Chrt().add(chrt.line().curve(chrt.interpolations.spline))
+
+// Other available interpolations
+chrt.Chrt().add(chrt.line().curve(chrt.interpolations.linear))
+chrt.Chrt().add(chrt.line().curve(chrt.interpolations.step)
+```
+
+#### `.aria([label])`
+
+Sets ARIA label for accessibility.
+
+```js
+// Set ARIA label
+chart.aria("Chart showing sales data over time");
+```
+
+## Internal Usage
+
+If you're developing components for chrt, you can extend `chrt-object`:
+
+```js
+import chrtObject from "chrt-object";
+
+function MyComponent() {
+  chrtObject.call(this);
+  this.type = "my-component";
+
+  // Add component-specific methods and properties
+  this.draw = () => {
+    // Drawing logic
+  };
+}
+
+MyComponent.prototype = Object.create(chrtObject.prototype);
+MyComponent.prototype.constructor = MyComponent;
+```
 
 ## Testing
 
-### Unit test with Jest
-Run `npm run test` to run all the tests on the code with Jest.
-```
-npm run test
+The module includes comprehensive tests for all functionality. Run tests using:
+
+```bash
+npm test
 ```
 
-To run only one test:
-```
-npx jest test/scales/scaleLinear.test.js
-```
+## Contributing
+
+When adding new methods to `chrt-object`, ensure they are:
+
+1. Generic enough to be useful for multiple components
+2. Well-documented with JSDoc comments
+3. Covered by tests
+4. Following the existing patterns for getters/setters
