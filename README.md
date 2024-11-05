@@ -12,21 +12,120 @@ All chrt components inherit these methods from `chrt-object`:
 
 #### `.data([data[, accessor]])`
 
-Sets or gets the data for the component.
+Sets or gets the data for the component. One of chrt's key features is its flexible data management: data can be passed either to the chart itself or to individual components.
+
+##### Data at Chart Level
+
+When data is set at the chart level, all components will use this data by default:
 
 ```js
-// Set data
-chart.data([1, 2, 3, 4, 5]);
-
-// Set data with accessor function
-chart.data(data, (d) => ({
-  x: d.timestamp,
-  y: d.value,
-}));
-
-// Get current data
-const currentData = chart.data();
+// Set data at chart level
+chrt
+  .Chrt()
+  .data([1, 2, 3, 4, 5])
+  .add(chrt.line()) // will use chart's data
+  .add(chrt.chrtBars()); // will use chart's data
 ```
+
+##### Data at Component Level
+
+Each component can have its own data, overriding the chart's data:
+
+```js
+// Different data for different components
+chrt
+  .Chrt()
+  .add(chrt.line().data([1, 2, 3, 4, 5]))
+  .add(chrt.chrtBars().data([5, 4, 3, 2, 1]));
+```
+
+##### Using Accessors
+
+Accessors allow you to map your data structure to the required format:
+
+```js
+// Complex data with accessor at chart level
+const data = [
+  { date: "2021-01", sales: 100, profit: 20 },
+  { date: "2021-02", sales: 150, profit: 30 },
+  { date: "2021-03", sales: 200, profit: 40 },
+];
+
+chrt
+  .Chrt()
+  .data(data, (d) => ({
+    x: d.date,
+    y: d.sales,
+  }))
+  .add(chrt.line());
+
+// Different accessors for different components
+chrt
+  .Chrt()
+  .data(data)
+  .add(
+    chrt.line().data(data, (d) => ({
+      x: d.date,
+      y: d.sales, // line shows sales
+    })),
+  )
+  .add(
+    chrt.chrtBars().data(data, (d) => ({
+      x: d.date,
+      y: d.profit, // bars show profit
+    })),
+  );
+```
+
+##### Multiple Series with Same Data
+
+You can use the same data with different accessors to create multiple series:
+
+```js
+// Multiple series from same dataset
+const data = [
+  { month: "Jan", revenue: 100, costs: 80, profit: 20 },
+  { month: "Feb", revenue: 120, costs: 90, profit: 30 },
+  { month: "Mar", revenue: 140, costs: 100, profit: 40 },
+];
+
+chrt
+  .Chrt()
+  .add(
+    chrt
+      .line()
+      .data(data, (d) => ({
+        x: d.month,
+        y: d.revenue,
+      }))
+      .stroke("#00ff00"),
+  )
+  .add(
+    chrt
+      .line()
+      .data(data, (d) => ({
+        x: d.month,
+        y: d.costs,
+      }))
+      .stroke("#ff0000"),
+  )
+  .add(
+    chrt
+      .chrtBars()
+      .data(data, (d) => ({
+        x: d.month,
+        y: d.profit,
+      }))
+      .fill("#0000ff"),
+  );
+```
+
+This flexible data management allows you to:
+
+- Use different data sources for different components
+- Transform data differently for each component
+- Create multiple visualizations from the same dataset
+- Mix different types of visualizations with different data structures
 
 #### `.x([scaleName])` / `.y([scaleName])`
 
@@ -47,14 +146,14 @@ const xScale = chart.x();
 Adds CSS class(es) to the component.
 
 ```js
-// Add single class
-chart.class("highlight");
+// Add single class to a line component
+chrt.Chrt().add(chrt.line().class("highlight"));
 
-// Add multiple classes
-chart.class("highlight bold");
+// Add multiple classes to a bar component
+chrt.Chrt().add(chrt.chrtBars().class("highlight bold"));
 
-// Add array of classes
-chart.class(["highlight", "bold"]);
+// Add array of classes to an axis
+chrt.Chrt().add(chrt.xAxis().class(["highlight", "bold"]));
 ```
 
 #### `.show()` / `.hide()`
@@ -62,11 +161,11 @@ chart.class(["highlight", "bold"]);
 Shows or hides the component.
 
 ```js
-// Hide component
-chart.hide();
+// Hide a line component
+chrt.Chrt().add(chrt.line().hide());
 
-// Show component
-chart.show();
+// Show a bar component
+chrt.Chrt().add(chrt.chrtBars().show());
 ```
 
 #### `.attr(name[, value])`
@@ -74,21 +173,20 @@ chart.show();
 Gets or sets custom attributes.
 
 ```js
-// Set attribute
-chart.attr("opacity", 0.5);
+// Set attribute on a line component
+chrt.Chrt().add(chrt.line().attr("opacity", 0.5));
 
-// Set attribute with function
-chart.attr("color", (d, i) => (i % 2 ? "red" : "blue"));
-
-// Get attribute
-const opacity = chart.attr("opacity");
+// Set attribute with function on a bar component
+chrt
+  .Chrt()
+  .add(chrt.chrtBars().attr("color", (d, i) => (i % 2 ? "red" : "blue")));
 ```
 
 ### DOM and Rendering
 
 #### `.node([element])`
 
-Gets or sets the DOM element containing the component.
+Gets or sets the DOM element containing the chart.
 
 ```js
 // Set container element
@@ -103,11 +201,11 @@ const element = chart.node();
 Gets or sets the ID of the component.
 
 ```js
-// Set ID
-chart.id("mainChart");
+// Set ID on a line component
+chrt.Chrt().add(chrt.line().id("mainLine"));
 
-// Get current ID
-const id = chart.id();
+// Set ID on an axis
+chrt.Chrt().add(chrt.xAxis().id("xAxis"));
 ```
 
 #### `.parent([object])`
@@ -115,8 +213,10 @@ const id = chart.id();
 Gets or sets the parent object of the component.
 
 ```js
-// Get parent
-const parent = chart.parent();
+// Get parent of a line component
+const line = chrt.line();
+chrt.Chrt().add(line);
+const parent = line.parent();
 ```
 
 #### `.render([parent])`
@@ -124,11 +224,9 @@ const parent = chart.parent();
 Renders the component, optionally within a parent component.
 
 ```js
-// Render component
-chart.render();
-
-// Render within parent
-chart.render(parentComponent);
+// Render a line component within a chart
+const line = chrt.line();
+line.render(chart);
 ```
 
 ### Utility Methods
@@ -151,8 +249,8 @@ chrt.Chrt().add(chrt.line().curve(chrt.interpolations.step)
 Sets ARIA label for accessibility.
 
 ```js
-// Set ARIA label
-chart.aria("Chart showing sales data over time");
+// Set ARIA label on a line component
+chrt.Chrt().add(chrt.line().aria("Line showing trend over time"));
 ```
 
 ## Internal Usage
