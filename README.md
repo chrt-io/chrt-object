@@ -24,7 +24,7 @@ chrt
   .Chrt()
   .data([1, 2, 3, 4, 5])
   .add(chrt.line()) // will use chart's data
-  .add(chrt.chrtBars()); // will use chart's data
+  .add(chrt.bars()); // will use chart's data
 ```
 
 ##### Data at Component Level
@@ -36,7 +36,7 @@ Each component can have its own data, overriding the chart's data:
 chrt
   .Chrt()
   .add(chrt.line().data([1, 2, 3, 4, 5]))
-  .add(chrt.chrtBars().data([5, 4, 3, 2, 1]));
+  .add(chrt.bars().data([5, 4, 3, 2, 1]));
 ```
 
 ##### Using Accessors
@@ -70,7 +70,7 @@ chrt
     })),
   )
   .add(
-    chrt.chrtBars().data(data, (d) => ({
+    chrt.bars().data(data, (d) => ({
       x: d.date,
       y: d.profit, // bars show profit
     })),
@@ -111,7 +111,7 @@ chrt
   )
   .add(
     chrt
-      .chrtBars()
+      .bars()
       .data(data, (d) => ({
         x: d.month,
         y: d.profit,
@@ -150,7 +150,7 @@ Adds CSS class(es) to the component.
 chrt.Chrt().add(chrt.line().class("highlight"));
 
 // Add multiple classes to a bar component
-chrt.Chrt().add(chrt.chrtBars().class("highlight bold"));
+chrt.Chrt().add(chrt.bars().class("highlight bold"));
 
 // Add array of classes to an axis
 chrt.Chrt().add(chrt.xAxis().class(["highlight", "bold"]));
@@ -165,7 +165,7 @@ Shows or hides the component.
 chrt.Chrt().add(chrt.line().hide());
 
 // Show a bar component
-chrt.Chrt().add(chrt.chrtBars().show());
+chrt.Chrt().add(chrt.bars().show());
 ```
 
 #### `.attr(name[, value])`
@@ -177,9 +177,7 @@ Gets or sets custom attributes.
 chrt.Chrt().add(chrt.line().attr("opacity", 0.5));
 
 // Set attribute with function on a bar component
-chrt
-  .Chrt()
-  .add(chrt.chrtBars().attr("color", (d, i) => (i % 2 ? "red" : "blue")));
+chrt.Chrt().add(chrt.bars().attr("color", (d, i) => (i % 2 ? "red" : "blue")));
 ```
 
 ### DOM and Rendering
